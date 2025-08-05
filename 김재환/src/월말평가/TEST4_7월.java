@@ -20,11 +20,7 @@ public class TEST4_7월 {
 			st = new StringTokenizer(br.readLine());
 			for(int j=0; j<m; j++) { arr1[i][j] = Integer.parseInt(st.nextToken()); }
 		}
-		
-		for(int i=0; i<n; i++) {
-//			for(int j=0; j<m; j++) System.out.print(arr1[i][j] + " ");
-			System.out.println();
-		}
+
 		
 		for(int k=0; k<=r; k++) {
 			if(k%2==1 && k>0) {
@@ -46,7 +42,6 @@ public class TEST4_7월 {
 			}
 		}
 		
-		System.out.println();
 		
 		if(r%2==1) {
 			for(int i=0; i<m; i++) {
