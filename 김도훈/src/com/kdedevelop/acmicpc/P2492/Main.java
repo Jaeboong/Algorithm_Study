@@ -20,6 +20,10 @@ class Point {
 		this.x = x;
 		this.y = y;
 	}
+	public Point() {
+		this.x = 0;
+		this.y = 0;
+	}
 	
 	int x;
 	int y;
@@ -38,28 +42,31 @@ public class Main {
 		int K = Integer.parseInt(inputNMTK.nextToken());
 		
 		Point[] intruders = new Point[T];
-		Set<Integer> xCan = new HashSet<>();
-		Set<Integer> yCan = new HashSet<>();
+		Set<Integer> xList = new HashSet<>();
+		Set<Integer> yList = new HashSet<>();
 		for (int i = 0 ; i < T ; i ++) {
 			Point intruder = new Point(br.readLine());
-			xCan.add(intruder.x);
-			yCan.add(intruder.y);
+			xList.add(intruder.x);
+			yList.add(intruder.y);
 			intruders[i] = intruder;
 		}
 		
 		int resultCounter = 0;
-		Point resultPoint = new Point(0, 0);
-		for (int xCa : xCan) {
-			for (int yCa : yCan) {
-				int x = xCa;
-				int y = yCa;
-				if (x > N - K) x = N - K;
-				if (y > M - K) y = M - K;
+		Point resultPoint = new Point();
+		
+		for (int xElement : xList) {
+			for (int yElement : yList) {
+				int x = Math.min(xElement, N-K);
+				int y = Math.min(yElement, M-K);
 				
 				int counter = 0;
 				for (Point intruder : intruders) {
-					if (intruder.x < x || intruder.x > x + K) continue;
-					if (intruder.y < y || intruder.y > y + K) continue;
+					int xDiff = intruder.x - x;
+					int yDiff = intruder.y - y;
+					
+					if (xDiff < 0 || yDiff < 0) continue;
+					if (xDiff > K || yDiff > K) continue;
+					
 					counter ++;
 				}
 				
@@ -71,8 +78,7 @@ public class Main {
 			}
 		}
 		
-		bw.write(resultPoint.x + " " + (resultPoint.y+K) + "\n");
-		bw.write(resultCounter + "\n");
+		bw.write(resultPoint.x + " " + (resultPoint.y+K) + "\n" + resultCounter + "\n");
 		
 		bw.flush();
 		bw.close();
