@@ -5,23 +5,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Solution {
-	public static void dfs(int depth, boolean[] used) {
-		if (depth == N) {
-			int sumOfHeight = 0;
-			for (int i = 0 ; i < N ; i ++) {
-				if (used[i]) sumOfHeight += heights[i];
-			}
-			if (sumOfHeight < B) return;
-			result = Math.min(result, sumOfHeight-B);
-		} else {
-			used[depth] = true;
-			dfs(depth+1, used);
-			used[depth] = false;
-			dfs(depth+1, used);
-		}
+	public static void dfs(int depth, int height) {
+		if (height >= B) result = Math.min(result, (height-B));
+		if (depth == N) return;
+		
+		dfs(depth+1, height + heights[depth]);
+		dfs(depth+1, height);
 	}
 	
 	static int result;
@@ -42,8 +35,9 @@ public class Solution {
 			heights = new int[N];
 			StringTokenizer inputHeight = new StringTokenizer(br.readLine());
 			for (int i = 0 ; i < N ; i ++) heights[i] = Integer.parseInt(inputHeight.nextToken());
+			//System.out.println(Arrays.toString(heights));
 			
-			dfs(0, new boolean[N]);
+			dfs(0, 0);
 			
 			bw.write("#" + (testCase+1) + " " + result + "\n");
 		}
