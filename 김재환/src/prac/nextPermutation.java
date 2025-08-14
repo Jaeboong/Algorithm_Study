@@ -24,11 +24,11 @@ public class nextPermutation {
 		long start = System.nanoTime();
 		
 		do {
-//			System.out.println(Arrays.toString(numbers));
+			System.out.println(Arrays.toString(numbers));
 		}while(np(numbers));
 		
 		long end = System.nanoTime();
-		System.out.println((end-start)/1_000_000_000.0);
+//		System.out.println((end-start)/1_000_000_000.0);
 
 	}
 
