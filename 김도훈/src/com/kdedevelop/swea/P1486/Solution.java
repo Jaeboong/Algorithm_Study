@@ -10,7 +10,10 @@ import java.util.StringTokenizer;
 
 public class Solution {
 	public static void dfs(int depth, int height) {
-		if (height >= B) result = Math.min(result, (height-B));
+		if (height >= B) {
+			result = Math.min(result, (height-B));
+			return;
+		}
 		if (depth == N) return;
 		
 		dfs(depth+1, height + heights[depth]);
