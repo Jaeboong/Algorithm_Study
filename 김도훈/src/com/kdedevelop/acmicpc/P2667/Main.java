@@ -1,4 +1,4 @@
-package com.kdedevelop.P2667;
+package com.kdedevelop.acmicpc.P2667;
 
 import java.io.*;
 import java.util.*;
