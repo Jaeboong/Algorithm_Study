@@ -17,7 +17,12 @@ public class Solution {
 			result = 0;
 			
 			bw.write("#" + (testCase + 1) + " " + result + "\n");
+
 		}
+					
+		br.close();
+		bw.flush();
+		bw.close();
 	}
 
 	public static void main(String[] args) throws IOException {
