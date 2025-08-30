@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class B1913 {
     static int N;
     static int[][] arr;
     static int point;
