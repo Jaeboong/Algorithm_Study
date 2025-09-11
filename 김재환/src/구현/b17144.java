@@ -51,24 +51,42 @@ public class b17144 {
 			}
 		}
 
-
 		for (int i = 0; i < T; i++) {
-			airMove();
 			diffusion();
+//			System.out.println("------------" + (i + 1) + "번 째 확산 후-------------");
+//			for (int r = 0; r < R; r++) {
+//				for (int c = 0; c < C; c++) {
+//					System.out.print(room[r][c] + "\t");
+//				}
+//				System.out.println();
+//			}
+			airMove();
+
+//			System.out.println("------------" + (i + 1) + "번 째 이동 후-------------");
+//			for (int r = 0; r < R; r++) {
+//				for (int c = 0; c < C; c++) {
+//					System.out.print(room[r][c] + "\t");
+//				}
+//				System.out.println();
+//			}
+
 		}
 		int sum = 0;
 		for (int i = 0; i < R; i++) {
 			for (int j = 0; j < C; j++) {
-				sum += room[i][j];
+				if (room[i][j] > 0) { // 양수만 더함
+					sum += room[i][j];
+				}
 			}
 		}
-		
-		sum += 2;
-		
+
 		System.out.println(sum);
 	}
 
 	private static void diffusion() {
+
+		tmp = new int[R][C];
+
 		for (int i = 0; i < R; i++) {
 			for (int j = 0; j < C; j++) {
 
@@ -79,54 +97,52 @@ public class b17144 {
 				if (room[i][j] == 0) {
 					continue;
 				}
-
-//				System.out.println("find diff");
 				int diffV = room[i][j] / 5;
 
+
 				if (i + 1 < R) {
-					if ((i + 1 == a1.r && j == a1.c) || (i + 1 == a2.r && j == a2.c))
-						continue;
-//					System.out.println("위 확산");
-					tmp[i][j] -= diffV;
-					tmp[i + 1][j] += diffV;
+					if (!((i + 1 == a1.r && j == a1.c) || (i + 1 == a2.r && j == a2.c))) {
+						tmp[i][j] -= diffV;
+						tmp[i + 1][j] += diffV;
+					}
 				}
 				if (i - 1 >= 0) {
-					if ((i - 1 == a1.r && j == a1.c) || (i - 1 == a2.r && j == a2.c))
-						continue;
-//					System.out.println("아래 확산");
-					tmp[i][j] -= diffV;
-					tmp[i - 1][j] += diffV;
+					if (!((i - 1 == a1.r && j == a1.c) || (i - 1 == a2.r && j == a2.c))) {
+//						System.out.println("아래 확산");
+						tmp[i][j] -= diffV;
+						tmp[i - 1][j] += diffV;
+					}
 				}
-				if (j + 1 < R) {
-					if ((i == a1.r && j + 1 == a1.c) || (i == a2.r && j + 1 == a2.c))
-						continue;
-//					System.out.println("오른쪽 확산");
-					tmp[i][j] -= diffV;
-					tmp[i][j + 1] += diffV;
+				if (j + 1 < C) {
+					if (!((i == a1.r && j + 1 == a1.c) || (i == a2.r && j + 1 == a2.c))) {
+//						System.out.println("오른쪽 확산");
+						tmp[i][j] -= diffV;
+						tmp[i][j + 1] += diffV;
+					}
 				}
 				if (j - 1 >= 0) {
-					if ((i == a1.r && j - 1 == a1.c) || (i == a2.r && j - 1 == a2.c))
-						continue;
+					if (!((i == a1.r && j - 1 == a1.c) || (i == a2.r && j - 1 == a2.c))) {
 //					System.out.println("왼쪽 확산");
-					tmp[i][j] -= diffV;
-					tmp[i][j - 1] += diffV;
+						tmp[i][j] -= diffV;
+						tmp[i][j - 1] += diffV;
+					}
 				}
 			}
 		}
 //		System.out.println();
-//		System.out.println("tmp 배열");
+//		System.out.println("---------------tmp 배열--------------");
 		for (int i = 0; i < R; i++) {
-//			System.out.println();
 			for (int j = 0; j < C; j++) {
-//				System.out.print(tmp[i][j] + " ");
+//				System.out.print(tmp[i][j] + "\t");
 				room[i][j] += tmp[i][j];
 			}
+//			System.out.println();
 		}
 	}
 
 	private static void airMove() {
 		// a1 down
-		for (int r = 0; r < a1.r; r++) {
+		for (int r = a1.r - 1; r >= 0; r--) {
 			if (r + 1 == a1.r) {
 				room[r][0] = 0;
 				continue;
@@ -136,7 +152,6 @@ public class b17144 {
 		// left
 		for (int c = 1; c < C; c++) {
 			left(0, c);
-			left(R - 1, c);
 		}
 		// a1 up
 		for (int r = 1; r <= a1.r; r++) {
@@ -150,8 +165,12 @@ public class b17144 {
 			}
 			up(r, 0);
 		}
+		// a2 left
+		for (int c = 1; c < C; c++) {
+			left(R - 1, c);
+		}
 		// a2 down
-		for (int r = a2.r; r < R - 1; r++) {
+		for (int r = R - 2; r >= a2.r; r--) {
 			down(r, C - 1);
 		}
 		// a2 right
