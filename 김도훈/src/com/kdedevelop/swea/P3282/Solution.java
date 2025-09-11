@@ -1,4 +1,4 @@
-package com.kdedevelop.swea.P3283;
+package com.kdedevelop.swea.P3282;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
